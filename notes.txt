@@ -1,0 +1,16 @@
+ const orderFromDb = await Order.aggregate([
+        {
+          $lookup: {
+            from: 'books', // The name of the Book collection
+            localField: 'book',
+            foreignField: '_id',
+            as: 'book',
+          },
+        },
+        {
+          $unwind: '$book',
+        },
+        {
+          $match:query
+        },
+      ]);
